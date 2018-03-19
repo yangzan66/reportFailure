@@ -1,0 +1,10 @@
+{% extends 'personBlog/personBlogMother.html' %}<!--声明要继承哪个模板，放在最上面-->
+{% block content %}
+  {% for item in article_show_obj %}
+    <div class="lead">
+      <a href="{% url "web:userBlog" blogUser=request.session.username articleNid=item.nid %}">
+        {{ item.title }}
+      </a>
+    </div>
+  {% endfor %}
+{% endblock %}

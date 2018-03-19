@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title> <!--指定这个block叫title-->
+    <link rel="stylesheet" href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/extra/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/personBlog.css">
+    {% block css %} {% endblock %}  <!--这部分内容用来每个子版html导入自己的css文件或写子版自己的样式-->
+</head>
+{#<body style="margin: 0 auto;width: 1670px;">#}
+<body style="margin: 0 auto;">
+      <!--表头-->
+ <div class="pg_header">
+   <nav class="navbar">
+    <div class="container-fluid" style="height: 80px">
+     <div class="navbar-header">
+       <a class="navbar-brand tab blogName" href="#">{{ obj_blog.title }}</a>
+     </div>
+     <ul class="nav navbar-nav navbar-right">
+         <li class="link"><a class="whiteFont" href="#">首页</a></li>  <!--web是一级路由的namespace，login是二级路由的name-->
+         <li class="link"><a class="whiteFont"  href="#">个人首页</a></li>
+         <li class="link"><a class="whiteFont"  href="#">管理</a></li>
+      </ul>
+    </div><!-- /.container-fluid -->
+   </nav>
+ </div>
+    <!--表头结束-->
+    <!--左侧菜单栏-开始-->
+  <div class="leftContent">
+      <div>
+          <div class="title1">类型</div>
+          <ul>
+              {% for item in obj_blog.blog2articletype.all %}
+                <li class="title2">
+                    <a href="{% url "web:userBlog" blogUser=request.session.username choiceTitle="articleType" choiceSubTitle=item.nid %}">
+                      {{ item.caption }}
+                  </a>
+                </li>
+              {% endfor %}
+          </ul>
+      </div>
+
+      <div>
+          <div class="title1">标签</div>
+          <ul>
+              {% for item in obj_blog.blog2articletype.all %}
+                <li class="title2">
+                    <a href="{% url "web:userBlog" blogUser=request.session.username choiceTitle="articleTag" choiceSubTitle=item.nid %}">
+                      {{ item.caption }}
+                  </a>
+                </li>
+              {% endfor %}
+          </ul>
+
+      </div>
+      <div>
+          <div class="title1">时间</div>
+          <ul>
+              <li class="title2"><a>aaa</a></li>
+              <li class="title2">bbb</li>
+              <li class="title2">ccc</li>
+          </ul>
+      </div>
+
+  </div>
+    <!--左侧菜单栏-结束-->
+      <!--右侧内容栏-->
+  <div class="rightContent">
+
+      {% block content %} {% endblock %}
+  </div>
+
+</body>
+</html>

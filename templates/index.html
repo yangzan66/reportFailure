@@ -1,0 +1,127 @@
+{% extends 'mother.html' %}<!--声明要继承哪个模板，放在最上面-->
+
+{% block title %}用户管理{% endblock %}
+{% block css %}
+
+{% endblock %}
+<!--填充正文内容部分-->
+{% block content %}
+    <div class="content">
+      <div class="articleZone">
+          {% for item in li %}
+          <div>
+            <div class="article">
+               <div>
+                  <a>
+                     <img class="img-rounded img"  src="/static/1.jpg">
+                      {{ item.summary }}
+                      <br>
+                      {{ item.article2detail.content }}
+                   </a>
+               </div>
+             </div>
+             <div>
+                <i class="fa fa-user-o" aria-hidden="true"></i>
+                   杨赞 发布于 20100808
+             </div>
+           </div>
+          {% endfor %}
+          <div>
+                {{ page_str }}
+            </div>
+            <div>
+                <input type="text" class="form-control" style="width: 120px;display: inline-block" placeholder="跳转到第几页">
+                <a id='jump' class="label label-primary">跳转</a>
+                <span style="display: inline-block;width: 100px">&nbsp</span>
+                <select id = 'selNum' class="form-control" style="width: 80px;display: inline-block;">
+                    <option value="10">10</option>
+                    <option value="30" selected="selected">30</option>
+                    <option value="50">50</option>
+                    <option value="80">80</option>
+                </select>
+                <span style="display: inline-block;">每页显示数据个数</span>
+            </div>
+            <br>
+            <span id = 'data_count' style="display: none">{{ page_count }}</span>  <!--用于获取后台传过来的 总的页数 数据，总页数-->
+      </div>
+      <div class="mypanel">
+          <div class="panel panel-primary">
+              <div class="panel-heading">
+                <h3 class="panel-title">推荐</h3>
+              </div>
+              <div class="panel-body">
+                Panel content
+              </div>
+          </div>
+          <div class="panel panel-success">
+              <div class="panel-heading">
+                <h3 class="panel-title">评论最多</h3>
+              </div>
+              <div class="panel-body">
+                Panel content
+              </div>
+          </div>
+      </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+<script>
+        /*给跳转到哪页的绑定事件*/
+        $('#jump').click(function () {
+           var num = parseInt($(this).prev().val()); /*num是用户输入的值*/
+            if(num > parseInt($('#data_count').text()) || num <= 0 || !num){ /*如果用户输入的页数大于总页数 或 小于等于0 或没有输入任何值*/
+                console.log(num)
+                var url = 'javascript:void(0)';   /*不做任何动作*/
+            }
+            else{
+                var url = '{{ base_url }}?p=' + num;
+                location.href = url
+            }
+        });
+        /*绑定跳转事件结束*/
+
+        /*选择每页显示多少行*/
+        /*思路：用户选择显示多少行内容，把用户的选择写到cookie里，访问url时，后台程序先从cookie里读取每页显示多少行，按要求显示*/
+        $(function () {        /*框架加载完后，先从cookie读取一下现显示多少行*/
+             var chice_num = $.cookie('per_page_count');  /*读取现在cookie中记录的是显示多少行*/
+            console.log(chice_num);
+            $('#selNum').val(chice_num);
+        });
+        /*绑定选择显示多少行的下拉框的改变内容事件*/
+        $('#selNum').change(function () {
+            var chice_num = $(this).val();  /*当前用户选择的值*/
+            $.cookie('per_page_count',chice_num,{path:"{% url "web:index" %}"});  /*把当前用户选择的行数记录到cookie里,只让这个cookie在base_url里生效，不影响其它的URL访问，使用这个模块时，这个路径要相应的改变*/
+            location.reload()  /*用户改变每页显示的行数后重新加载页面*/
+        })
+        /*选择每页显示多少行结束*/
+{#/*给跳转到哪页的绑定事件*/#}
+{#    $('#jump').click(function () {#}
+{#       var num = parseInt($(this).prev().val()); /*num是用户输入的值*/#}
+{#        if(num > parseInt($('#data_count').text()) || num <= 0 || !num){ /*如果用户输入的页数大于总页数 或 小于等于0 或没有输入任何值*/#}
+{#            var url = 'javascript:void(0)';   /*不做任何动作*/#}
+{#        }#}
+{#        else{#}
+{#            var url = '{{ base_url }}?p=' + num;#}
+{#            location.href = url#}
+{#        }#}
+{#    });#}
+{#    /*绑定跳转事件结束*/#}
+{##}
+{#    /*选择每页显示多少行*/#}
+{#    /*思路：用户选择显示多少行内容，把用户的选择写到cookie里，访问url时，后台程序先从cookie里读取每页显示多少行，按要求显示*/#}
+{#    $(function () {        /*框架加载完后，先从cookie读取一下现显示多少行*/#}
+{#         var chice_num = $.cookie('per_page_count');  /*读取现在cookie中记录的是显示多少行*/#}
+{#        console.log(chice_num);#}
+{#        $('#selNum').val(chice_num);#}
+{#    });#}
+{#    /*绑定选择显示多少行的下拉框的改变内容事件*/#}
+{#    $('#selNum').change(function () {#}
+{#        var chice_num = $(this).val();  /*当前用户选择的值*/#}
+{#        $.cookie('per_page_count',chice_num,{path:"{% url "web:index" %}"});  /*把当前用户选择的行数记录到cookie里,只让这个cookie在base_url里生效，不影响其它的URL访问，使用这个模块时，这个路径要相应的改变*/#}
+{#        location.reload()  /*用户改变每页显示的行数后重新加载页面*/#}
+{#    })#}
+    /*选择每页显示多少行结束*/
+</script>
+
+{% endblock %}

@@ -1,0 +1,59 @@
+.pg_header{
+    /*background-color: #eee;*/
+    font-size: 15px;
+    height: 80px;
+    /*width: 2049px;*/
+
+}
+
+.pg_header .tab{
+    font-size:40px;
+    line-height: 50px;
+    margin-left: 40px;
+}
+.pg_header .logo{
+    float: left;
+    line-height: 70px;
+    margin-left: 60px;
+}
+
+.floatleft{
+    float: left;
+}
+
+.content{
+    border: 1px solid red;
+    width: 1400px;
+    margin: 0 auto;
+    margin-top:2px;
+    /*text-align: center;*/
+
+}
+
+.content .articleZone{
+    border: 1px solid green;
+    float: left;
+    width: 800px
+}
+.content .articleZone .article{
+    min-height:100px;  /*设置最小高度，不要小于图片高度，否则会乱*/
+    margin-top: 30px;
+    width: 750px;
+
+}
+
+.content .articleZone .article .img{
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 35px
+}
+.content .mypanel{
+    border: 1px solid blue;
+    float: right;
+    width:500px;
+    margin-top: 35px;
+}
+
+
+

@@ -1,0 +1,1 @@
+forms目录下的文件是使用django form插件进行表单验证时，定义的django class类

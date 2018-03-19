@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %} {% endblock %}</title> <!--指定这个block叫title-->
+    <link rel="stylesheet" href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/extra/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    {% block css %} {% endblock %}  <!--这部分内容用来每个子版html导入自己的css文件或写子版自己的样式-->
+
+</head>
+<body style="margin: 0 auto;width:1675px">
+        <!--表头-->
+ <div class="pg_header">
+   <nav class="navbar navbar-default">
+    <div class="container-fluid">
+     <div class="navbar-header">
+       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+         <span class="sr-only">Toggle navigation</span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </button>
+       <a class="navbar-brand tab" href="#">技术论坛</a>
+     </div>
+
+     <!-- Collect the nav links, forms, and other content for toggling -->
+     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+       <ul class="nav navbar-nav">
+           {% if article_id == 0 %} <!--'全部'标签如果用户点了这个标签-->
+               <li class="active"><a href="{% url "web:index" 0 %}" class="tab">全部</a></li> <!--'全部'标签，最后的数字为0表示全部文章-->
+           {% else %}
+               <li><a href="{% url "web:index" 0 %}" class="tab">全部</a></li>
+           {% endif %}
+           {% for item in article_home_choice%}
+               {% if article_id == item.0 %} <!--如果用户点了这个标签-->
+                   <li class="active"><a href="{% url "web:index" item.0 %}" class="tab">{{ item.1 }}</a></li> <!--给这个标签设为active，url中用item.0来区分不同的文章类型-->
+               {% else %}
+                   <li><a href="{% url "web:index" item.0 %}" class="tab">{{ item.1 }}</a></li> <!--url中用item.0来区分不同的文章类型-->
+               {% endif %}
+
+           {% endfor %}
+
+        </ul>
+       <ul class="nav navbar-nav navbar-right">
+         {% if request.session.is_login %}  <!--如果有用户已登录的session-->
+           <li class="dropdown userdropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ request.session.username }} <span class="caret"></span></a>
+           <ul class="dropdown-menu">
+             <li><a href="{% url "web:userBlog" blogUser=request.session.username %}">个人主页</a></li>
+             <li><a href="#">Another action</a></li>
+             <li><a href="#">Something else here</a></li>
+             <li role="separator" class="divider"></li>
+             <li><a href="{% url "web:logout" %}">注销</a></li>
+           </ul>
+         </li>
+         {% else %}
+           <li><a href="{% url 'web:login' %}">登录</a></li>  <!--web是一级路由的namespace，login是二级路由的name-->
+           <li><a href="{% url 'web:register' %}">注册</a></li>
+         {% endif %}
+        </ul>
+     </div><!-- /.navbar-collapse -->
+   </div><!-- /.container-fluid -->
+   </nav>
+</div>
+    <!--表头结束-->
+
+    {% block content %} {% endblock %}  <!--填写子html的内容-->
+
+    <script src="/static/extra/jquery-3.3.1.js"></script>
+    <script src="/static/extra/jquery.cookie.js"></script>    <!--导入jquery cookie-->
+    <script>
+
+        /*给用户头像旁边的下拉按钮绑定点击事件 - 开始*/
+        $('.userdropdown').click(function () {
+            $(this).toggleClass('open')
+        })
+
+    </script>
+    {% block js %} {% endblock %} <!--这部分内容用来写每个子版html自己的js,子html中要写<script>xxxx</script>-->
+
+</body>
+</html>

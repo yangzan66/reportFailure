@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册</title>
+    <link rel="stylesheet " href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/register.css">
+</head>
+<body>
+  <div class="loginForm">
+    <h1 class="page_title">用户注册</h1>
+    <form id="form" action="/web/register/" method="post" class="form-horizontal" role="form">
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-10">
+            {{ obj.username }}
+          <div id="username_errmsg" class="err_msg">&nbsp{{ obj.errors.username.0 }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="col-sm-2 control-label">邮箱</label>
+        <div class="col-sm-10">
+            {{ obj.email }}
+          <div id="email_errmsg" class="err_msg">&nbsp{{ obj.errors.email.0 }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwd" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            {{ obj.pwd }}
+          <div id="pwd_errmsg" class="err_msg">&nbsp{{ obj.errors.pwd.0 }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="confirm_pwd" class="col-sm-2 control-label">确认密码</label>
+        <div class="col-sm-10">
+            {{ obj.confirm_pwd }}
+          <div id="confirm_pwd_errmsg" class="err_msg">&nbsp{{ obj.non_field_errors.0 }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10 text-center">
+          <button id='submitBtn' type="submit" class="btn btn-default">确认注册</button>
+          <div class="between_button"></div>
+          <a href="/web/login/">返回登录页面</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</body>
+</html>

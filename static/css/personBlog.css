@@ -1,0 +1,42 @@
+.pg_header{
+    background-color: #337ab7;
+    font-size: 15px;
+    height: 80px;
+
+}
+.pg_header .link{
+    font-size: 20px;
+}
+.pg_header .blogName{
+    font-size: 40px;
+    line-height: 41px;
+    color:white;
+}
+.pg_header .whiteFont{
+    color: white;
+}
+.nav>li>a:hover{
+    background-color: #2011FF;
+}
+
+
+.leftContent{
+    float:left;
+    border:1px red solid;
+    width:400px;
+
+}
+.leftContent .title1{
+    font-size: 25px;
+}
+.leftContent .title2{
+    font-size: 20px;
+    color:rgba(0, 159, 255, 0.79);
+}
+
+
+.rightContent{
+    float: left;
+    border:1px blue solid;
+    width:800px;
+}

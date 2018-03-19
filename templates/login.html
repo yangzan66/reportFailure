@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet " href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="/static/extra/bootstrap-3.3.7-dist/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/static/css/common.css">
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+<body>
+  <div class="loginForm">
+    <h1 class="page_title">用户登录</h1>
+    <form id="form" action="/web/login/" method="post" class="form-horizontal" role="form">
+        {% csrf_token %}
+      <div class="form-group">
+        <label for="username" class="col-sm-2 control-label">用户名</label>
+        <div class="col-sm-10">
+            {{ obj.username }}
+          <div id="username_errmsg" class="err_msg">&nbsp{{ auth_result.username_err }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="pwd" class="col-sm-2 control-label">密码</label>
+        <div class="col-sm-10">
+            {{ obj.pwd }}
+          <div id="pwd_errmsg" class="err_msg">&nbsp{{ auth_result.pwd_err }}</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+          <div class="checkbox">
+            <label>
+              <input  name='remain' type="checkbox" value="yes">10天内免登陆
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10 text-center">
+          <button id='submitBtn' type="submit" class="btn btn-default">登录</button>
+          <div class="between_button"></div>
+          <a href={% url 'web:register' %}>立即注册</a>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</body>
+</html>
